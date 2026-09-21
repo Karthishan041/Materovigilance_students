@@ -25,7 +25,7 @@ export default function SplashScreen({ onFinish }) {
       {/* Main Content Center */}
       <div className="flex flex-col items-center justify-center gap-8 my-auto">
         {/* Glowing Container Card matching Image 5 */}
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.9, y: 10 }}
           animate={{ scale: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

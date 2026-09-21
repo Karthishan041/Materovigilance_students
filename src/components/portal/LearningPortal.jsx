@@ -79,12 +79,12 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
         initial={{ scale: 0.95, y: 15 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.95, y: 15 }}
-        className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-5xl overflow-hidden flex flex-col max-h-[92vh]"
+        className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-5xl overflow-hidden flex flex-col max-h-[92vh]"
       >
         {/* Portal Header Bar */}
         <div className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-600/30 p-1 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-[#0088FF]/20 p-1 flex items-center justify-center">
               <MVLogo variant="icon" className="w-6 h-7" />
             </div>
             <div>
@@ -114,13 +114,13 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl font-medium text-xs sm:text-sm whitespace-nowrap transition-colors cursor-pointer ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-lg font-medium text-xs sm:text-sm whitespace-nowrap transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-white text-blue-700 border-t-2 border-blue-600 shadow-2xs font-semibold'
+                    ? 'bg-white text-[#0088FF] border-t-2 border-[#0088FF] shadow-2xs font-semibold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-[#0088FF]' : 'text-slate-400'}`} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -133,20 +133,20 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
           {/* TAB 1: PRE-TEST */}
           {activeTab === 'pre-test' && (
             <div className="max-w-3xl mx-auto space-y-6">
-              <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl flex items-start gap-3">
-                <HelpCircle className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+              <div className="bg-[#F0F7FF] border border-blue-100 p-4 rounded-lg flex items-start gap-3">
+                <HelpCircle className="w-5 h-5 text-[#0088FF] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-bold text-blue-900 text-sm">Baseline Competency Pre-Test</h3>
-                  <p className="text-xs text-blue-700 mt-0.5">
-                    Answer these 3 questions to establish your baseline understanding before accessing detailed modules.
+                  <h3 className="font-semibold text-slate-900 text-sm">Baseline Competency Pre-Test</h3>
+                  <p className="text-xs text-slate-600 mt-0.5">
+                    Answer these questions to establish your baseline understanding before accessing detailed modules.
                   </p>
                 </div>
               </div>
 
               {/* Question 1 */}
-              <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Question 1 of 3</span>
-                <h4 className="font-bold text-slate-800 text-sm sm:text-base">
+              <div className="bg-white p-5 rounded-lg border border-slate-200 space-y-3">
+                <span className="text-xs font-semibold text-[#0088FF] uppercase tracking-wider">Question 1 of 2</span>
+                <h4 className="font-semibold text-slate-900 text-sm sm:text-base">
                   What is the primary objective of Materiovigilance?
                 </h4>
                 <div className="space-y-2">
@@ -159,9 +159,9 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                     <button
                       key={idx}
                       onClick={() => handleQuizOption(1, idx)}
-                      className={`w-full text-left p-3 rounded-lg border text-xs sm:text-sm transition-all cursor-pointer ${
+                      className={`w-full text-left p-3 rounded-md border text-xs sm:text-sm transition-all cursor-pointer ${
                         quizAnswers[1] === idx
-                          ? 'border-blue-600 bg-blue-50 text-blue-900 font-medium'
+                          ? 'border-[#0088FF] bg-[#F0F7FF] text-[#0088FF] font-medium'
                           : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                       }`}
                     >
@@ -172,9 +172,9 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
               </div>
 
               {/* Question 2 */}
-              <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">Question 2 of 3</span>
-                <h4 className="font-bold text-slate-800 text-sm sm:text-base">
+              <div className="bg-white p-5 rounded-lg border border-slate-200 space-y-3">
+                <span className="text-xs font-semibold text-[#0088FF] uppercase tracking-wider">Question 2 of 2</span>
+                <h4 className="font-semibold text-slate-900 text-sm sm:text-base">
                   Which incident must be immediately reported under device vigilance protocols?
                 </h4>
                 <div className="space-y-2">
@@ -187,9 +187,9 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                     <button
                       key={idx}
                       onClick={() => handleQuizOption(2, idx)}
-                      className={`w-full text-left p-3 rounded-lg border text-xs sm:text-sm transition-all cursor-pointer ${
+                      className={`w-full text-left p-3 rounded-md border text-xs sm:text-sm transition-all cursor-pointer ${
                         quizAnswers[2] === idx
-                          ? 'border-blue-600 bg-blue-50 text-blue-900 font-medium'
+                          ? 'border-[#0088FF] bg-[#F0F7FF] text-[#0088FF] font-medium'
                           : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                       }`}
                     >
@@ -208,7 +208,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                     setQuizSubmitted(true);
                     setActiveTab('modules');
                   }}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-lg flex items-center gap-2 cursor-pointer shadow-md"
+                  className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-md flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <span>Submit Pre-Test & Continue</span>
                   <ArrowRight className="w-4 h-4" />
@@ -227,17 +227,17 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                   <button
                     key={idx}
                     onClick={() => setActiveModule(idx)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${
+                    className={`w-full text-left p-4 rounded-lg border transition-all cursor-pointer ${
                       activeModule === idx
-                        ? 'border-blue-600 bg-white shadow-md ring-1 ring-blue-600'
+                        ? 'border-[#0088FF] bg-white shadow-xs'
                         : 'border-slate-200 bg-white/70 hover:bg-white text-slate-700'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-semibold text-blue-600">{mod.type}</span>
+                      <span className="text-xs font-semibold text-[#0088FF]">{mod.type}</span>
                       <span className="text-[11px] text-slate-400">{mod.duration}</span>
                     </div>
-                    <h4 className="font-bold text-slate-900 text-xs sm:text-sm leading-snug">
+                    <h4 className="font-semibold text-slate-900 text-xs sm:text-sm leading-snug">
                       {mod.title}
                     </h4>
                   </button>
@@ -245,15 +245,15 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
               </div>
 
               {/* Right Content Area */}
-              <div className="lg:col-span-8 bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
-                <div className="relative aspect-video bg-slate-900 rounded-xl overflow-hidden flex items-center justify-center group">
+              <div className="lg:col-span-8 bg-white p-6 rounded-lg border border-slate-200 space-y-4">
+                <div className="relative aspect-video bg-slate-900 rounded-md overflow-hidden flex items-center justify-center group">
                   <img
                     src="/medical_eeg_presentation.jpg"
                     alt="Video thumbnail"
                     className="w-full h-full object-cover opacity-60"
                   />
-                  <div className="absolute inset-0 bg-blue-900/30 flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform cursor-pointer">
+                  <div className="absolute inset-0 bg-slate-900/30 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-[#0088FF] text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform cursor-pointer">
                       <Play className="w-6 h-6 ml-1" />
                     </div>
                   </div>
@@ -263,7 +263,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg sm:text-xl mb-2">
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">
                     {modulesData[activeModule].title}
                   </h3>
                   <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
@@ -274,7 +274,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                 <div className="flex justify-end pt-3 border-t border-slate-100">
                   <button
                     onClick={() => setActiveTab('checks')}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-lg flex items-center gap-2 cursor-pointer"
+                    className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-md flex items-center gap-2 cursor-pointer"
                   >
                     <span>Proceed to Knowledge Check</span>
                     <ArrowRight className="w-4 h-4" />
@@ -287,12 +287,12 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
           {/* TAB 3: KNOWLEDGE CHECKS */}
           {activeTab === 'checks' && (
             <div className="max-w-2xl mx-auto space-y-6">
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+              <div className="bg-white p-6 rounded-lg border border-slate-200 space-y-4 shadow-2xs">
                 <div className="flex items-center gap-2 text-emerald-600">
                   <CheckCircle className="w-5 h-5" />
-                  <span className="font-bold text-xs uppercase tracking-wider">Checkpoint 1</span>
+                  <span className="font-semibold text-xs uppercase tracking-wider">Checkpoint 1</span>
                 </div>
-                <h3 className="font-bold text-slate-900 text-base sm:text-lg">
+                <h3 className="font-semibold text-slate-900 text-base">
                   Which entity is responsible for submitting root-cause medical device investigation reports?
                 </h3>
                 <div className="space-y-2">
@@ -305,7 +305,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                     <button
                       key={i}
                       onClick={() => setActiveTab('practice')}
-                      className="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-blue-600 hover:bg-blue-50 text-xs sm:text-sm text-slate-700 font-medium transition-all cursor-pointer"
+                      className="w-full text-left p-3.5 rounded-md border border-slate-200 hover:border-[#0088FF] hover:bg-[#F0F7FF] text-xs sm:text-sm text-slate-700 font-medium transition-all cursor-pointer"
                     >
                       {i + 1}. {ans}
                     </button>
@@ -318,14 +318,14 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
           {/* TAB 4: PRACTICE CASES */}
           {activeTab === 'practice' && (
             <div className="max-w-3xl mx-auto space-y-6">
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+              <div className="bg-white p-6 rounded-lg border border-slate-200 space-y-4 shadow-2xs">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md">
+                  <span className="bg-amber-50 text-amber-800 border border-amber-200 text-xs font-semibold px-2.5 py-1 rounded">
                     Simulated ICU Case Study #402
                   </span>
                   <span className="text-xs text-slate-400">Difficulty: Intermediate</span>
                 </div>
-                <h3 className="font-bold text-slate-900 text-base sm:text-lg">
+                <h3 className="font-bold text-slate-900 text-base">
                   ICU Smart Infusion Pump Over-Infusion Alert
                 </h3>
                 <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
@@ -343,12 +343,12 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                       onClick={() => {
                         setCaseChoice(c.id);
                       }}
-                      className={`w-full text-left p-4 rounded-xl border text-xs sm:text-sm transition-all cursor-pointer ${
+                      className={`w-full text-left p-4 rounded-md border text-xs sm:text-sm transition-all cursor-pointer ${
                         caseChoice === c.id
                           ? c.id === 'a' 
                             ? 'bg-emerald-50 border-emerald-500 text-emerald-900 font-medium'
                             : 'bg-rose-50 border-rose-400 text-rose-900'
-                          : 'bg-white border-slate-200 hover:border-blue-400'
+                          : 'bg-white border-slate-200 hover:border-slate-300'
                       }`}
                     >
                       {c.text}
@@ -357,11 +357,11 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                 </div>
 
                 {caseChoice === 'a' && (
-                  <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-xs text-emerald-800 font-medium flex items-center justify-between">
+                  <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-md text-xs text-emerald-800 font-medium flex items-center justify-between">
                     <span>Correct Protocol! Device quarantine & log preservation prevents recurring incidents.</span>
                     <button
                       onClick={() => setActiveTab('post-test')}
-                      className="bg-emerald-600 text-white font-bold px-4 py-2 rounded-lg text-xs"
+                      className="bg-emerald-600 text-white font-semibold px-4 py-2 rounded-md text-xs"
                     >
                       Continue to Post-Test
                     </button>
@@ -374,7 +374,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
           {/* TAB 5: POST-TEST */}
           {activeTab === 'post-test' && (
             <div className="max-w-2xl mx-auto space-y-6 text-center py-6">
-              <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-[#F0F7FF] text-[#0088FF] rounded-full flex items-center justify-center mx-auto border border-blue-100">
                 <ShieldCheck className="w-8 h-8" />
               </div>
               <h3 className="font-bold text-slate-900 text-xl">Comprehensive Post-Test</h3>
@@ -383,7 +383,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
               </p>
               <button
                 onClick={() => setActiveTab('certificate')}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-lg shadow-blue-600/30 cursor-pointer"
+                className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-sm px-6 py-3 rounded-md shadow-xs cursor-pointer"
               >
                 Complete Post-Test & Generate Certificate
               </button>
@@ -394,14 +394,10 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
           {activeTab === 'certificate' && (
             <div className="max-w-3xl mx-auto space-y-6">
               {/* Certificate Canvas Mockup */}
-              <div className="bg-gradient-to-b from-slate-50 to-blue-50/30 border-4 border-blue-900/10 p-8 rounded-2xl shadow-xl text-center relative overflow-hidden">
-                <div className="absolute top-4 right-4 text-blue-600/20">
-                  <Award className="w-32 h-32" />
-                </div>
-
+              <div className="bg-white border-2 border-slate-200 p-8 rounded-lg shadow-sm text-center relative overflow-hidden">
                 <div className="relative z-10 space-y-4">
-                  <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">
-                    <ShieldCheck className="w-4 h-4 text-blue-600" />
+                  <div className="inline-flex items-center gap-2 bg-[#F0F7FF] text-[#0088FF] text-xs font-semibold px-3 py-1 rounded">
+                    <ShieldCheck className="w-4 h-4 text-[#0088FF]" />
                     <span>VERIFIED CERTIFICATE OF MASTERY</span>
                   </div>
 
@@ -409,25 +405,25 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                     Certificate of Competency
                   </h2>
 
-                  <p className="text-xs text-slate-500 uppercase tracking-widest">
+                  <p className="text-xs text-slate-500 uppercase tracking-widest font-medium">
                     This certifies that
                   </p>
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-blue-700 underline decoration-blue-300 underline-offset-4">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#0088FF]">
                     Dr. Alex Morgan
                   </h3>
 
                   <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
                     has successfully completed the comprehensive training program in <br />
-                    <strong className="text-slate-900">Materiovigilance & Medical Device Safety Monitoring</strong>
+                    <strong className="text-slate-900 font-semibold">Materiovigilance & Medical Device Safety Monitoring</strong>
                   </p>
 
-                  <div className="pt-6 flex justify-around items-end border-t border-slate-200/80 max-w-md mx-auto">
+                  <div className="pt-6 flex justify-around items-end border-t border-slate-200 max-w-md mx-auto">
                     <div className="text-center">
                       <p className="text-xs font-bold text-slate-800">Sept 17, 2026</p>
                       <p className="text-[10px] text-slate-400">Date Issued</p>
                     </div>
-                    <div className="w-12 h-12 bg-white border border-blue-200 rounded-full flex items-center justify-center p-2 shadow-md">
+                    <div className="w-12 h-12 bg-white border border-blue-100 rounded-full flex items-center justify-center p-2 shadow-xs">
                       <MVLogo variant="icon" className="w-8 h-9" />
                     </div>
                     <div className="text-center">
@@ -441,7 +437,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
               <div className="flex justify-center gap-4">
                 <button
                   onClick={() => alert('Certificate downloaded as PDF!')}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-md cursor-pointer"
+                  className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-md flex items-center gap-2 shadow-xs cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download PDF Certificate</span>

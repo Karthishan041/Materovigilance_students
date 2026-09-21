@@ -174,42 +174,42 @@ export default function ResourcesView() {
   });
 
   return (
-    <div className="space-y-5 pb-10">
+    <div className="space-y-5 pb-10 text-[#172033]">
       
       {/* Header Banner */}
-      <div className="bg-white rounded-md p-5 sm:p-6 border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white rounded-xl p-5 sm:p-6 border border-[#E2E8F0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+            <h1 className="text-xl font-bold text-[#172033] tracking-tight">
               Learning Resources
             </h1>
-            <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+            <span className="text-xs font-semibold text-[#172033] bg-[#F7F9FC] border border-[#E2E8F0] px-2.5 py-0.5 rounded-md">
               {resourcesData.length} Items
             </span>
           </div>
-          <p className="text-xs text-slate-600 font-normal leading-relaxed">
+          <p className="text-xs text-[#64748B] leading-relaxed">
             Access statutory medical device guidelines, official MvPI reporting forms, clinical SOP checklists, and regulatory reference databases.
           </p>
         </div>
       </div>
 
       {/* Search & Category Filter Controls */}
-      <div className="bg-white rounded-md p-4 border border-slate-200 space-y-3">
+      <div className="bg-white rounded-xl p-4 border border-[#E2E8F0] space-y-3">
         
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#64748B] absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search resources by title, keyword, or category..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-1.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-md focus:bg-white focus:border-[#0088FF] focus:ring-1 focus:ring-[#0088FF] outline-none transition-all placeholder:text-slate-400"
+            className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg focus:bg-white focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/15 outline-none transition-all placeholder:text-[#64748B]"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-2 text-xs text-slate-400 hover:text-slate-600 font-medium"
+              className="absolute right-3 top-2.5 text-xs text-[#64748B] hover:text-[#172033] font-medium"
             >
               Clear
             </button>
@@ -218,17 +218,17 @@ export default function ResourcesView() {
 
         {/* Category Filter Controls */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
-          <span className="text-[11px] font-medium text-slate-400 mr-1 shrink-0">
+          <span className="text-[11px] font-bold text-[#64748B] mr-1 shrink-0">
             Category:
           </span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-[#0088FF] text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                  : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:border-[#CBD5E1] hover:text-[#0088FF]'
               }`}
             >
               {cat}
@@ -239,17 +239,17 @@ export default function ResourcesView() {
 
       {/* Clean 2-Column Resource Grid */}
       {filteredResources.length === 0 ? (
-        <div className="bg-white rounded-md p-10 border border-slate-200 text-center space-y-2.5">
-          <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-400">
+        <div className="bg-white rounded-xl p-10 border border-[#E2E8F0] text-center space-y-2.5">
+          <div className="w-10 h-10 bg-[#F7F9FC] border border-[#E2E8F0] rounded-full flex items-center justify-center mx-auto text-[#64748B]">
             <Search className="w-5 h-5" />
           </div>
-          <h3 className="font-semibold text-slate-800 text-sm">No resources found</h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+          <h3 className="font-bold text-[#172033] text-sm">No resources found</h3>
+          <p className="text-xs text-[#64748B] max-w-sm mx-auto">
             No materials matched "{searchQuery}" under "{selectedCategory}".
           </p>
           <button
             onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
-            className="bg-[#0088FF] text-white text-xs font-medium px-3.5 py-1.5 rounded-md hover:bg-[#0070D2] cursor-pointer"
+            className="bg-[#0088FF] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#0070D2] cursor-pointer"
           >
             Reset Filters
           </button>
@@ -259,15 +259,15 @@ export default function ResourcesView() {
           {filteredResources.map((resource) => (
             <div
               key={resource.id}
-              className="bg-white rounded-md p-4.5 border border-slate-200 hover:border-slate-300 transition-colors flex flex-col justify-between space-y-3"
+              className="bg-white rounded-xl p-4.5 border border-[#E2E8F0] hover:border-[#CBD5E1] transition-all flex flex-col justify-between space-y-3"
             >
               <div className="space-y-2">
                 {/* Meta Row */}
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-semibold text-[#0088FF] uppercase tracking-wider">
+                  <span className="text-[10px] font-bold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded uppercase tracking-wider">
                     {resource.category}
                   </span>
-                  <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+                  <div className="flex items-center gap-1.5 text-[11px] text-[#64748B] font-medium">
                     <span>{resource.type}</span>
                     <span>•</span>
                     <span>{resource.fileSize}</span>
@@ -276,37 +276,37 @@ export default function ResourcesView() {
 
                 {/* Title */}
                 <div className="flex items-start gap-2.5">
-                  <div className="w-7 h-7 rounded bg-slate-50 border border-slate-200 text-[#0088FF] flex items-center justify-center shrink-0 mt-0.5">
-                    <FileText className="w-3.5 h-3.5" />
+                  <div className="w-8 h-8 rounded-lg bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF] flex items-center justify-center shrink-0 mt-0.5">
+                    <FileText className="w-4 h-4" />
                   </div>
                   <div className="space-y-0.5">
-                    <h3 className="font-bold text-slate-900 text-sm leading-snug">
+                    <h3 className="font-bold text-[#172033] text-sm leading-snug">
                       {resource.title}
                     </h3>
-                    <p className="text-[11px] text-slate-400 font-medium">
+                    <p className="text-[11px] text-[#64748B] font-medium">
                       Source: {resource.source}
                     </p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
                   {resource.description}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div className="border-t border-slate-100 pt-2.5 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-slate-400">
+              <div className="border-t border-[#F1F5F9] pt-2.5 flex items-center justify-between gap-2">
+                <span className="text-[11px] text-[#64748B]">
                   Updated: {resource.updatedAt}
                 </span>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setPreviewResource(resource)}
-                    className="bg-white hover:bg-slate-50 border border-[#D9E1EA] text-slate-700 font-medium text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5 cursor-pointer transition-colors"
+                    className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
-                    <Eye className="w-3.5 h-3.5 text-slate-500" />
+                    <Eye className="w-3.5 h-3.5 text-[#64748B]" />
                     <span>View</span>
                   </button>
 
@@ -315,7 +315,7 @@ export default function ResourcesView() {
                       href={resource.externalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-medium text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <span>Open Link</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -323,7 +323,7 @@ export default function ResourcesView() {
                   ) : (
                     <button
                       onClick={() => alert(`Downloading "${resource.title}" (${resource.fileSize})...`)}
-                      className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-medium text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" />
                       <span>Download</span>
@@ -338,23 +338,23 @@ export default function ResourcesView() {
 
       {/* RESOURCE PREVIEW MODAL */}
       {previewResource && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-md shadow-lg border border-slate-200 w-full max-w-2xl overflow-hidden p-6 space-y-4">
-            <div className="flex items-start justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xl w-full max-w-2xl overflow-hidden p-6 space-y-4">
+            <div className="flex items-start justify-between border-b border-[#E2E8F0] pb-3">
               <div className="space-y-1">
-                <span className="text-[11px] font-semibold text-[#0088FF] uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded uppercase tracking-wider">
                   {previewResource.category}
                 </span>
-                <h2 className="text-base font-bold text-slate-900 leading-snug">
+                <h2 className="text-base font-bold text-[#172033] leading-snug">
                   {previewResource.title}
                 </h2>
-                <p className="text-xs text-slate-500 font-medium">
+                <p className="text-xs text-[#64748B] font-medium">
                   {previewResource.source} • {previewResource.type} ({previewResource.fileSize})
                 </p>
               </div>
               <button
                 onClick={() => setPreviewResource(null)}
-                className="p-1 text-slate-400 hover:text-slate-600 rounded hover:bg-slate-100 cursor-pointer"
+                className="p-1 text-[#64748B] hover:text-[#172033] rounded-md hover:bg-slate-100 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -362,31 +362,31 @@ export default function ResourcesView() {
 
             <div className="space-y-3.5">
               <div className="space-y-1">
-                <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Document Summary</h4>
-                <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-md border border-slate-200">
+                <h4 className="text-xs font-bold text-[#172033] uppercase tracking-wider">Document Summary</h4>
+                <p className="text-xs text-[#172033] leading-relaxed bg-[#F7F9FC] p-3 rounded-lg border border-[#E2E8F0]">
                   {previewResource.description}
                 </p>
               </div>
 
               {previewResource.keyExcerpt && (
                 <div className="space-y-1">
-                  <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Key Excerpt</h4>
-                  <div className="bg-slate-50 p-3 rounded-md text-xs text-slate-700 leading-relaxed border border-slate-200">
+                  <h4 className="text-xs font-bold text-[#172033] uppercase tracking-wider">Key Excerpt</h4>
+                  <div className="bg-[#F7F9FC] p-3 rounded-lg text-xs text-[#172033] leading-relaxed border border-[#E2E8F0]">
                     "{previewResource.keyExcerpt}"
                   </div>
                 </div>
               )}
 
-              <div className="text-xs text-slate-400 flex items-center justify-between pt-1">
+              <div className="text-xs text-[#64748B] flex items-center justify-between pt-1">
                 <span>Verification ID: VCBL-RES-{previewResource.id.toUpperCase()}</span>
                 <span>Last Reviewed: {previewResource.updatedAt}</span>
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 border-t border-slate-100 pt-3.5">
+            <div className="flex items-center justify-end gap-2.5 border-t border-[#E2E8F0] pt-3.5">
               <button
                 onClick={() => setPreviewResource(null)}
-                className="bg-white hover:bg-slate-50 border border-[#D9E1EA] text-slate-700 font-medium text-xs px-4 py-1.5 rounded-md cursor-pointer transition-colors"
+                className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-4 py-2 rounded-lg cursor-pointer transition-colors"
               >
                 Close
               </button>
@@ -395,7 +395,7 @@ export default function ResourcesView() {
                   href={previewResource.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-medium text-xs px-4 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5"
+                  className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
                 >
                   <span>Launch Portal</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -406,7 +406,7 @@ export default function ResourcesView() {
                     alert(`Downloading "${previewResource.title}"...`);
                     setPreviewResource(null);
                   }}
-                  className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-medium text-xs px-4 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5"
+                  className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download Document</span>

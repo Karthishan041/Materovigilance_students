@@ -313,33 +313,33 @@ export default function DeviceLibraryView({ onNavigate }) {
   if (selectedDevice) {
     const IconComp = selectedDevice.imageIcon || Layers;
     return (
-      <div className="space-y-5 pb-10">
+      <div className="space-y-5 pb-10 text-[#172033]">
         
         {/* Navigation / Action Bar */}
-        <div className="flex items-center justify-between bg-white px-5 py-3.5 rounded-md border border-slate-200">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-white px-5 py-3.5 rounded-xl border border-[#E2E8F0] gap-3">
           <div className="flex items-center gap-2 text-xs">
             <button
               onClick={() => setSelectedDevice(null)}
-              className="text-[#0088FF] hover:underline font-medium flex items-center gap-1 cursor-pointer transition-colors"
+              className="text-[#0088FF] hover:underline font-semibold flex items-center gap-1 cursor-pointer transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Device Reference Library</span>
             </button>
-            <span className="text-slate-300">/</span>
-            <span className="font-semibold text-slate-800">{selectedDevice.name}</span>
+            <span className="text-[#E2E8F0]">/</span>
+            <span className="font-bold text-[#172033] truncate">{selectedDevice.name}</span>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5 self-start sm:self-auto">
             <button
               onClick={() => setSelectedDevice(null)}
-              className="bg-white hover:bg-slate-50 border border-[#D9E1EA] text-slate-700 font-medium text-xs px-3.5 py-1.5 rounded-md cursor-pointer transition-colors flex items-center gap-1.5"
+              className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-3.5 py-1.5 rounded-lg cursor-pointer transition-colors flex items-center gap-1.5"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-slate-500" />
+              <ArrowLeft className="w-3.5 h-3.5 text-[#64748B]" />
               <span>Back to Library</span>
             </button>
             <button
               onClick={() => alert(`Technical Safety Summary for ${selectedDevice.name} downloaded.`)}
-              className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-medium text-xs px-3.5 py-1.5 rounded-md cursor-pointer transition-colors flex items-center gap-1.5"
+              className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-semibold text-xs px-3.5 py-1.5 rounded-lg cursor-pointer transition-colors flex items-center gap-1.5"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download Technical Sheet</span>
@@ -348,28 +348,28 @@ export default function DeviceLibraryView({ onNavigate }) {
         </div>
 
         {/* Device Hero Card */}
-        <div className="bg-white rounded-md p-6 border border-slate-200 flex flex-col md:flex-row items-start justify-between gap-6">
+        <div className="bg-white rounded-xl p-6 border border-[#E2E8F0] flex flex-col md:flex-row items-start justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-md bg-slate-50 border border-slate-200 text-[#0088FF] flex items-center justify-center shrink-0">
+            <div className="w-14 h-14 rounded-xl bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF] flex items-center justify-center shrink-0">
               <IconComp className="w-7 h-7" />
             </div>
 
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <span className="text-[#0088FF] text-xs font-semibold uppercase tracking-wider">
+                <span className="text-[#0088FF] text-xs font-bold uppercase tracking-wider">
                   {selectedDevice.category}
                 </span>
-                <span className="text-slate-300">•</span>
-                <span className="text-slate-500 text-xs font-medium">
+                <span className="text-[#E2E8F0]">•</span>
+                <span className="text-[#64748B] text-xs font-medium">
                   {selectedDevice.riskClass} ({selectedDevice.riskLevel})
                 </span>
               </div>
 
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+              <h1 className="text-xl font-bold text-[#172033] tracking-tight">
                 {selectedDevice.name}
               </h1>
 
-              <p className="text-xs text-slate-600 max-w-3xl leading-relaxed pt-0.5">
+              <p className="text-xs text-[#64748B] max-w-3xl leading-relaxed pt-0.5">
                 {selectedDevice.description}
               </p>
             </div>
@@ -379,22 +379,22 @@ export default function DeviceLibraryView({ onNavigate }) {
         {/* Section 1 & 2: Clinical Overview & Usage */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           
-          <div className="bg-white rounded-md p-5 border border-slate-200 space-y-2.5">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-2.5">
+            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
               <Info className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wider">1. What is it?</h3>
+              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">1. What is it?</h3>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-[#64748B] leading-relaxed">
               {selectedDevice.whatIsIt}
             </p>
           </div>
 
-          <div className="bg-white rounded-md p-5 border border-slate-200 space-y-2.5">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-2.5">
+            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
               <Cpu className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wider">2. How is it used?</h3>
+              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">2. How is it used?</h3>
             </div>
-            <div className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">
+            <div className="text-xs text-[#64748B] leading-relaxed whitespace-pre-line">
               {selectedDevice.howIsItUsed}
             </div>
           </div>
@@ -402,24 +402,24 @@ export default function DeviceLibraryView({ onNavigate }) {
         </div>
 
         {/* Section 3: Key Components */}
-        <div className="bg-white rounded-md p-5 border border-slate-200 space-y-3.5">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3.5">
+          <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2">
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wider">3. Key Components & Subsystems</h3>
+              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">3. Key Components & Subsystems</h3>
             </div>
-            <span className="text-[11px] text-slate-400 font-medium">
+            <span className="text-[11px] text-[#64748B] font-medium">
               {selectedDevice.keyComponents.length} Subsystems
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {selectedDevice.keyComponents.map((comp, idx) => (
-              <div key={idx} className="bg-slate-50/70 p-3 rounded-md border border-slate-200/80 space-y-1">
-                <h4 className="font-semibold text-slate-800 text-xs">
+              <div key={idx} className="bg-[#F7F9FC] p-3.5 rounded-lg border border-[#E2E8F0] space-y-1">
+                <h4 className="font-bold text-[#172033] text-xs">
                   {idx + 1}. {comp.name}
                 </h4>
-                <p className="text-[11px] text-slate-500 leading-snug">
+                <p className="text-[11px] text-[#64748B] leading-snug">
                   {comp.desc}
                 </p>
               </div>
@@ -431,14 +431,14 @@ export default function DeviceLibraryView({ onNavigate }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           
           {/* Safety Considerations */}
-          <div className="bg-white rounded-md p-5 border border-slate-200 space-y-3">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3">
+            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
               <Check className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wider">4. Safety Considerations & SOPs</h3>
+              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">4. Safety Considerations & SOPs</h3>
             </div>
             <ul className="space-y-2">
               {selectedDevice.safetyConsiderations.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                <li key={idx} className="flex items-start gap-2 text-xs text-[#172033]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0088FF] mt-1.5 shrink-0" />
                   <span className="leading-relaxed">{item}</span>
                 </li>
@@ -447,15 +447,15 @@ export default function DeviceLibraryView({ onNavigate }) {
           </div>
 
           {/* Common Issues & Risks */}
-          <div className="bg-white rounded-md p-5 border border-slate-200 space-y-3">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
-              <AlertCircle className="w-4 h-4 text-slate-500" />
-              <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wider">5. Common Issues & Materiovigilance Risks</h3>
+          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3">
+            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
+              <AlertCircle className="w-4 h-4 text-[#64748B]" />
+              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">5. Common Issues & Materiovigilance Risks</h3>
             </div>
             <ul className="space-y-2">
               {selectedDevice.commonIssues.map((issue, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-1.5 shrink-0" />
+                <li key={idx} className="flex items-start gap-2 text-xs text-[#172033]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#64748B] mt-1.5 shrink-0" />
                   <span className="leading-relaxed font-medium">{issue}</span>
                 </li>
               ))}
@@ -465,9 +465,9 @@ export default function DeviceLibraryView({ onNavigate }) {
         </div>
 
         {/* Section 6 & 7: Related Curriculum & Practice Cases */}
-        <div className="bg-white rounded-md p-5 border border-slate-200 space-y-3.5">
-          <div className="border-b border-slate-100 pb-2">
-            <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wider">
+        <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3.5">
+          <div className="border-b border-[#E2E8F0] pb-2">
+            <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">
               6. Related Curriculum Modules & Virtual Cases
             </h3>
           </div>
@@ -475,16 +475,16 @@ export default function DeviceLibraryView({ onNavigate }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Related Modules */}
             <div className="space-y-2">
-              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-[#0088FF]" />
                 <span>Related Modules</span>
               </span>
               {selectedDevice.relatedModules.map((mod, idx) => (
-                <div key={idx} className="bg-slate-50/80 p-3 rounded-md border border-slate-200 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-800">{mod.title}</span>
+                <div key={idx} className="bg-[#F7F9FC] p-3 rounded-lg border border-[#E2E8F0] flex items-center justify-between">
+                  <span className="text-xs font-semibold text-[#172033]">{mod.title}</span>
                   <button
                     onClick={() => onNavigate && onNavigate(mod.id)}
-                    className="text-xs font-medium text-[#0088FF] hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-semibold text-[#0088FF] hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <span>Open Module</span>
                     <ArrowRight className="w-3 h-3" />
@@ -495,22 +495,22 @@ export default function DeviceLibraryView({ onNavigate }) {
 
             {/* Related Virtual Cases */}
             <div className="space-y-2">
-              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5 text-[#0088FF]" />
                 <span>Related Virtual Cases</span>
               </span>
               {selectedDevice.relatedCases.map((c, idx) => (
-                <div key={idx} className="bg-slate-50/80 p-3 rounded-md border border-slate-200 flex items-center justify-between">
+                <div key={idx} className="bg-[#F7F9FC] p-3 rounded-lg border border-[#E2E8F0] flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-semibold text-slate-800 block">{c.title}</span>
-                    <span className="text-[10px] text-slate-500">Difficulty: {c.difficulty}</span>
+                    <span className="text-xs font-semibold text-[#172033] block">{c.title}</span>
+                    <span className="text-[10px] text-[#64748B]">Difficulty: {c.difficulty}</span>
                   </div>
                   <button
                     onClick={() => {
                       alert(`Opening ${c.title} simulation...`);
                       if (onNavigate) onNavigate('course');
                     }}
-                    className="bg-white hover:bg-slate-50 border border-[#D9E1EA] text-slate-800 font-medium text-xs px-3 py-1.5 rounded-md flex items-center gap-1 cursor-pointer"
+                    className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
                   >
                     <span>Launch Case</span>
                     <ArrowRight className="w-3 h-3" />
@@ -527,42 +527,42 @@ export default function DeviceLibraryView({ onNavigate }) {
 
   // DEFAULT VIEW: Device Library List / Grid
   return (
-    <div className="space-y-5 pb-10">
+    <div className="space-y-5 pb-10 text-[#172033]">
       
       {/* Page Header */}
-      <div className="bg-white rounded-md p-5 sm:p-6 border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white rounded-xl p-5 sm:p-6 border border-[#E2E8F0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+            <h1 className="text-xl font-bold text-[#172033] tracking-tight">
               Device Reference Library
             </h1>
-            <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+            <span className="text-xs font-semibold text-[#172033] bg-[#F7F9FC] border border-[#E2E8F0] px-2.5 py-0.5 rounded-md">
               {devices.length} Devices
             </span>
           </div>
-          <p className="text-xs text-slate-600 font-normal leading-relaxed">
+          <p className="text-xs text-[#64748B] leading-relaxed">
             Search medical devices and review technical operation, key components, safety considerations, and common materiovigilance issues.
           </p>
         </div>
       </div>
 
       {/* Search & Category Filter Controls */}
-      <div className="bg-white rounded-md p-4 border border-slate-200 space-y-3">
+      <div className="bg-white rounded-xl p-4 border border-[#E2E8F0] space-y-3">
         
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#64748B] absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search devices by name, category, or risk class..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-1.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-md focus:bg-white focus:border-[#0088FF] focus:ring-1 focus:ring-[#0088FF] outline-none transition-all placeholder:text-slate-400"
+            className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg focus:bg-white focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/15 outline-none transition-all placeholder:text-[#64748B]"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-2 text-xs text-slate-400 hover:text-slate-600 font-medium"
+              className="absolute right-3 top-2.5 text-xs text-[#64748B] hover:text-[#172033] font-medium"
             >
               Clear
             </button>
@@ -571,17 +571,17 @@ export default function DeviceLibraryView({ onNavigate }) {
 
         {/* Category Controls */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
-          <span className="text-[11px] font-medium text-slate-400 mr-1 shrink-0">
+          <span className="text-[11px] font-bold text-[#64748B] mr-1 shrink-0">
             Category:
           </span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-[#0088FF] text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                  : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:border-[#CBD5E1] hover:text-[#0088FF]'
               }`}
             >
               {cat}
@@ -592,17 +592,17 @@ export default function DeviceLibraryView({ onNavigate }) {
 
       {/* 3-Column Device Grid */}
       {filteredDevices.length === 0 ? (
-        <div className="bg-white rounded-md p-10 border border-slate-200 text-center space-y-2.5">
-          <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-slate-400">
+        <div className="bg-white rounded-xl p-10 border border-[#E2E8F0] text-center space-y-2.5">
+          <div className="w-10 h-10 bg-[#F7F9FC] border border-[#E2E8F0] rounded-full flex items-center justify-center mx-auto text-[#64748B]">
             <Search className="w-5 h-5" />
           </div>
-          <h3 className="font-semibold text-slate-800 text-sm">No medical devices found</h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+          <h3 className="font-bold text-[#172033] text-sm">No medical devices found</h3>
+          <p className="text-xs text-[#64748B] max-w-sm mx-auto">
             No devices matched "{searchQuery}" under "{selectedCategory}".
           </p>
           <button
             onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
-            className="bg-[#0088FF] text-white text-xs font-medium px-3.5 py-1.5 rounded-md hover:bg-[#0070D2] cursor-pointer"
+            className="bg-[#0088FF] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#0070D2] cursor-pointer"
           >
             Reset Filters
           </button>
@@ -614,45 +614,45 @@ export default function DeviceLibraryView({ onNavigate }) {
             return (
               <div
                 key={device.id}
-                className="bg-white rounded-md p-4.5 border border-slate-200 hover:border-slate-300 transition-colors flex flex-col justify-between space-y-3.5"
+                className="bg-white rounded-xl p-4.5 border border-[#E2E8F0] hover:border-[#CBD5E1] transition-all flex flex-col justify-between space-y-3.5"
               >
                 <div className="space-y-2.5">
                   {/* Category & Class Meta */}
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-semibold text-[#0088FF] uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded uppercase tracking-wider">
                       {device.category}
                     </span>
-                    <span className="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-medium text-[#64748B] bg-[#F7F9FC] border border-[#E2E8F0] px-2 py-0.5 rounded">
                       {device.riskClass}
                     </span>
                   </div>
 
                   {/* Device Icon + Title */}
                   <div className="flex items-start gap-3 pt-0.5">
-                    <div className="w-9 h-9 rounded-md bg-slate-50 border border-slate-200 text-[#0088FF] flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-lg bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF] flex items-center justify-center shrink-0">
                       <IconComponent className="w-4.5 h-4.5" />
                     </div>
                     <div className="space-y-0.5">
-                      <h3 className="font-bold text-slate-900 text-sm leading-snug">
+                      <h3 className="font-bold text-[#172033] text-sm leading-snug">
                         {device.name}
                       </h3>
-                      <span className="text-[10px] text-slate-400 font-medium block">
+                      <span className="text-[10px] text-[#64748B] font-medium block">
                         {device.riskLevel}
                       </span>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                  <p className="text-xs text-[#64748B] line-clamp-3 leading-relaxed">
                     {device.description}
                   </p>
                 </div>
 
                 {/* Card Action */}
-                <div className="border-t border-slate-100 pt-3">
+                <div className="border-t border-[#F1F5F9] pt-3">
                   <button
                     onClick={() => setSelectedDevice(device)}
-                    className="w-full bg-white hover:bg-slate-50 border border-[#D9E1EA] text-slate-700 hover:text-[#0088FF] hover:border-[#0088FF] font-semibold text-xs py-2 rounded-md flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                    className="w-full bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:text-[#0088FF] hover:border-[#0088FF] font-semibold text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                   >
                     <span>View Device</span>
                     <ArrowRight className="w-3.5 h-3.5" />
