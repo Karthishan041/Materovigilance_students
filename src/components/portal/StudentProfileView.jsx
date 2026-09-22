@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  Building2, ShieldCheck, Hash, ArrowRight
+  Building2, ShieldCheck, Hash 
 } from 'lucide-react';
 
 export default function StudentProfileView({ user, onNavigate }) {
@@ -214,91 +214,7 @@ export default function StudentProfileView({ user, onNavigate }) {
         </div>
       </div>
 
-      {/* SECTION 3: LEARNING PROFILE (EXISTING DATA ONLY) */}
-      <div className="bg-white rounded-xl p-6 border border-[#E2E8F0] space-y-5">
-        <div className="border-b border-[#E2E8F0] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            <h2 className="text-sm font-bold text-[#172033] uppercase tracking-wider">
-              Learning Profile
-            </h2>
-            <p className="text-xs text-[#64748B] mt-0.5">
-              Academic progress snapshot across core modules, simulation cases, and clinical benchmarks
-            </p>
-          </div>
-          {onNavigate && (
-            <button
-              onClick={() => onNavigate('performance')}
-              className="text-xs font-semibold text-[#0088FF] hover:underline flex items-center gap-1 self-start sm:self-auto cursor-pointer"
-            >
-              <span>View Full Performance Analytics</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          )}
-        </div>
-
-        {/* Learning Summary Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-1">
-          
-          {/* Tile 1: Overall Progress */}
-          <div className="p-4 rounded-lg bg-[#F7F9FC] border border-[#E2E8F0] flex flex-col justify-between space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-              Overall Progress
-            </span>
-            <div>
-              <p className="text-2xl font-bold text-[#0088FF]">62.5%</p>
-              <p className="text-[11px] text-[#64748B] mt-0.5">5 of 8 modules passed</p>
-            </div>
-            <div className="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden">
-              <div className="bg-[#0088FF] h-full rounded-full w-[62.5%]" />
-            </div>
-          </div>
-
-          {/* Tile 2: Current Module */}
-          <div className="p-4 rounded-lg bg-[#F7F9FC] border border-[#E2E8F0] flex flex-col justify-between space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-              Current Module
-            </span>
-            <div>
-              <p className="text-sm font-bold text-[#172033] truncate">Module 3 – MDPI</p>
-              <p className="text-[11px] text-[#64748B] mt-0.5">80% progress (Active)</p>
-            </div>
-            <div className="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden">
-              <div className="bg-[#0088FF] h-full rounded-full w-[80%]" />
-            </div>
-          </div>
-
-          {/* Tile 3: Completed Modules */}
-          <div className="p-4 rounded-lg bg-[#F7F9FC] border border-[#E2E8F0] flex flex-col justify-between space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-              Completed Modules
-            </span>
-            <div>
-              <p className="text-2xl font-bold text-[#172033]">5 / 8</p>
-              <p className="text-[11px] text-[#64748B] mt-0.5">Core curriculum units</p>
-            </div>
-            <div className="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden">
-              <div className="bg-[#0088FF] h-full rounded-full w-[62.5%]" />
-            </div>
-          </div>
-
-          {/* Tile 4: Clinical Cases Solved */}
-          <div className="p-4 rounded-lg bg-[#F7F9FC] border border-[#E2E8F0] flex flex-col justify-between space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-              Simulation Cases
-            </span>
-            <div>
-              <p className="text-2xl font-bold text-[#172033]">14 Cases</p>
-              <p className="text-[11px] text-[#64748B] mt-0.5">Virtual clinical simulations</p>
-            </div>
-            <div className="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden">
-              <div className="bg-[#0088FF] h-full rounded-full w-[88%]" />
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* SECTION 4: ACCOUNT / ACCESS */}
+      {/* SECTION 3: ACCOUNT & ACCESS INFORMATION */}
       <div className="bg-white rounded-xl p-6 border border-[#E2E8F0] space-y-5">
         <div className="border-b border-[#E2E8F0] pb-3">
           <h2 className="text-sm font-bold text-[#172033] uppercase tracking-wider">

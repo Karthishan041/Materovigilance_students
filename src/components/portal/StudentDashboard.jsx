@@ -550,28 +550,18 @@ export default function StudentDashboard({ user, onLogout }) {
                 {/* 3. FACULTY UPLOADED COURSES SECTION */}
                 <div className="bg-white rounded-xl p-6 border border-[#E2E8F0] space-y-4">
                   {/* Section Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E8F0] pb-3">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h2 className="text-base font-bold text-[#172033] tracking-tight">
-                          Faculty Uploaded Courses
-                        </h2>
-                        <span className="bg-[#F0F7FF] text-[#0088FF] border border-[#0088FF]/20 text-[10px] font-semibold px-2 py-0.5 rounded">
-                          {facultyCourses.length} Published
-                        </span>
-                      </div>
-                      <p className="text-xs text-[#64748B] mt-0.5">
-                        Specialized modules and clinical guides published by medical faculty for student learning
-                      </p>
+                  <div className="border-b border-[#E2E8F0] pb-3">
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-base font-bold text-[#172033] tracking-tight">
+                        Faculty Uploaded Courses
+                      </h2>
+                      <span className="bg-[#F0F7FF] text-[#0088FF] border border-[#0088FF]/20 text-[10px] font-semibold px-2 py-0.5 rounded">
+                        {facultyCourses.length} Published
+                      </span>
                     </div>
-
-                    <button
-                      onClick={() => setShowUploadModal(true)}
-                      className="bg-[#0088FF] hover:bg-[#0070D2] text-white font-medium text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors self-start sm:self-auto shrink-0 shadow-xs"
-                    >
-                      <Plus className="w-4 h-4" />
-                      <span>Upload Course (Faculty)</span>
-                    </button>
+                    <p className="text-xs text-[#64748B] mt-0.5">
+                      Specialized modules and clinical guides published by medical faculty for student learning
+                    </p>
                   </div>
 
                   {/* Course Cards Grid */}

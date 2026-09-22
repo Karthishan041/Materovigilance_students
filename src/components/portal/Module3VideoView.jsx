@@ -4,7 +4,7 @@ import {
   ArrowLeft, ChevronRight, Play, Pause, Volume2, VolumeX, 
   Maximize, Minimize, RotateCcw, CheckCircle2, FileText, 
   Clock, Award, BookOpen, ShieldCheck, Download, AlertCircle, 
-  HelpCircle, Check, X
+  HelpCircle, Check, X, Star, MessageSquare
 } from 'lucide-react';
 
 export default function Module3VideoView({ onBack, onNavigate }) {
@@ -31,6 +31,21 @@ export default function Module3VideoView({ onBack, onNavigate }) {
   const [hasTriggeredQuestion, setHasTriggeredQuestion] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answerState, setAnswerState] = useState(null); // null | 'correct' | 'incorrect'
+
+  // Ask a Doubt State
+  const [showDoubtModal, setShowDoubtModal] = useState(false);
+  const [doubtTimestamp, setDoubtTimestamp] = useState(null);
+  const [doubtQuestion, setDoubtQuestion] = useState('');
+  const [submittedDoubts, setSubmittedDoubts] = useState([]);
+  const [doubtNotification, setDoubtNotification] = useState(null);
+
+  // Student Feedback State
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [feedbackRating, setFeedbackRating] = useState(5);
+  const [feedbackType, setFeedbackType] = useState('Video Content');
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [submittedFeedback, setSubmittedFeedback] = useState([]);
+  const [feedbackNotification, setFeedbackNotification] = useState(null);
 
   const playerContainerRef = useRef(null);
 
@@ -113,6 +128,59 @@ export default function Module3VideoView({ onBack, onNavigate }) {
     setIsPlaying(true);
   };
 
+  // Ask a Doubt Handlers
+  const handleOpenAskDoubt = () => {
+    setIsPlaying(false);
+    setDoubtTimestamp(currentTime);
+    setDoubtQuestion('');
+    setShowDoubtModal(true);
+  };
+
+  const handleSendDoubt = (e) => {
+    if (e) e.preventDefault();
+    if (!doubtQuestion.trim()) return;
+    const newDoubt = {
+      videoTitle: 'Medical Device Problem Reporting',
+      timestamp: `${formatTime(doubtTimestamp)} / ${formatTime(duration)}`,
+      timestampFormatted: formatTime(doubtTimestamp),
+      rawSeconds: doubtTimestamp,
+      question: doubtQuestion.trim(),
+      createdAt: new Date().toISOString()
+    };
+    setSubmittedDoubts(prev => [newDoubt, ...prev]);
+    setShowDoubtModal(false);
+    setDoubtQuestion('');
+    setDoubtNotification('Your doubt has been sent to the faculty.');
+    setTimeout(() => {
+      setDoubtNotification(null);
+    }, 4000);
+  };
+
+  // Student Feedback Handlers
+  const handleOpenFeedback = () => {
+    setShowFeedbackModal(true);
+  };
+
+  const handleSubmitFeedback = (e) => {
+    if (e) e.preventDefault();
+    const newFeedback = {
+      rating: feedbackRating,
+      type: feedbackType,
+      message: feedbackMessage.trim(),
+      videoTitle: 'Medical Device Problem Reporting',
+      moduleTitle: 'Module 3: Medical Device Problem Reporting',
+      createdAt: new Date().toISOString()
+    };
+    setSubmittedFeedback(prev => [newFeedback, ...prev]);
+    setShowFeedbackModal(false);
+    setFeedbackMessage('');
+    setFeedbackRating(5);
+    setFeedbackNotification('Feedback submitted successfully.');
+    setTimeout(() => {
+      setFeedbackNotification(null);
+    }, 4000);
+  };
+
   const progressPercent = Math.round((currentTime / duration) * 100);
 
   return (
@@ -142,17 +210,8 @@ export default function Module3VideoView({ onBack, onNavigate }) {
           </button>
         </div>
 
-        {/* Page Title & Module Badge */}
+        {/* Page Title */}
         <div className="pt-2 border-t border-[#F1F5F9] space-y-1.5">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded tracking-wider">
-              MODULE 3
-            </span>
-            <span className="text-[10px] font-semibold text-[#64748B] bg-[#F7F9FC] border border-[#E2E8F0] px-2 py-0.5 rounded">
-              Unit 3 • In Progress
-            </span>
-          </div>
-
           <h1 className="text-xl sm:text-2xl font-bold text-[#172033] tracking-tight">
             Module 3: Medical Device Problem Reporting
           </h1>
@@ -198,6 +257,15 @@ export default function Module3VideoView({ onBack, onNavigate }) {
               </div>
 
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleOpenAskDoubt}
+                  className="bg-slate-900/85 hover:bg-[#0088FF] text-slate-200 hover:text-white border border-slate-700 hover:border-[#0088FF] px-2.5 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                  title="Ask a Doubt at current video timestamp"
+                >
+                  <HelpCircle className="w-3.5 h-3.5 text-[#0088FF]" />
+                  <span>Ask a Doubt</span>
+                </button>
                 <span className="bg-slate-900/80 text-slate-200 px-2 py-1 rounded text-[11px] font-mono border border-slate-700">
                   {formatTime(currentTime)} / {formatTime(duration)}
                 </span>
@@ -499,59 +567,65 @@ export default function Module3VideoView({ onBack, onNavigate }) {
                   </span>
                 </div>
                 <p className="text-xs text-[#64748B]">
-                  Duration: 25 minutes • Status: <span className="text-[#0088FF] font-semibold">In Progress (05:00 / 25:00)</span>
+                  Duration: 25 minutes • Status: <span className="text-[#0088FF] font-semibold">In Progress ({formatTime(currentTime)} / {formatTime(duration)})</span>
                 </p>
               </div>
 
-              <div className="text-right shrink-0">
-                <span className="text-xs font-semibold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2.5 py-1 rounded-md">
+              <div className="text-right shrink-0 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleOpenAskDoubt}
+                  className="text-xs font-semibold text-[#0088FF] hover:text-[#0070D2] bg-[#F0F7FF] hover:bg-[#E0EFFF] border border-[#0088FF]/30 px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+                  title="Ask a doubt connected to current timestamp"
+                >
+                  <HelpCircle className="w-3.5 h-3.5" />
+                  <span>Ask a Doubt</span>
+                </button>
+                <span className="text-xs font-semibold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2.5 py-1.5 rounded-md">
                   Active Lecture
                 </span>
               </div>
             </div>
 
             {/* Description using existing Module 3 context */}
-            <div className="space-y-3 text-xs text-[#172033] leading-relaxed">
+            <div className="space-y-2 text-xs text-[#172033] leading-relaxed">
               <h4 className="font-bold text-[#172033] text-xs uppercase tracking-wider">
                 Lesson Overview
               </h4>
               <p className="text-[#64748B]">
                 This instructional unit guides medical officers, clinical pharmacists, and biomedical staff through standard operating procedures (SOPs) for documenting, investigating, and reporting suspected medical device problems. Learn how to accurately classify adverse incidents, isolate malfunctioning equipment, and file statutory notifications under CDSCO and Materiovigilance Programme of India (MvPI) guidelines.
               </p>
+            </div>
 
-              {/* 3 Core Points */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                <div className="bg-[#F7F9FC] border border-[#E2E8F0] p-3 rounded-lg space-y-1">
-                  <div className="flex items-center gap-1.5 text-[#0088FF] font-semibold text-xs">
-                    <span className="w-1.5 h-1.5 bg-[#0088FF] rounded-full" />
-                    <span>1. Incident Triage</span>
+            {/* SUBMITTED DOUBTS LIST (Prototype State Display) */}
+            {submittedDoubts.length > 0 && (
+              <div className="pt-2 border-t border-[#F1F5F9]">
+                <div className="bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-[#172033] flex items-center gap-1.5">
+                      <HelpCircle className="w-3.5 h-3.5 text-[#0088FF]" />
+                      <span>My Submitted Questions ({submittedDoubts.length})</span>
+                    </span>
+                    <span className="text-[10px] font-medium text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                      Sent to Faculty
+                    </span>
                   </div>
-                  <p className="text-[11px] text-[#64748B]">
-                    Immediate patient stabilization and hardware quarantine.
-                  </p>
-                </div>
-
-                <div className="bg-[#F7F9FC] border border-[#E2E8F0] p-3 rounded-lg space-y-1">
-                  <div className="flex items-center gap-1.5 text-[#0088FF] font-semibold text-xs">
-                    <span className="w-1.5 h-1.5 bg-[#0088FF] rounded-full" />
-                    <span>2. Data Capture</span>
+                  <div className="space-y-1.5">
+                    {submittedDoubts.map((item, idx) => (
+                      <div key={idx} className="bg-white p-2.5 rounded-md border border-[#E2E8F0] text-xs space-y-1">
+                        <div className="flex items-center justify-between text-[11px] text-[#64748B]">
+                          <span className="font-mono font-semibold text-[#0088FF]">
+                            Timestamp: {item.timestampFormatted}
+                          </span>
+                          <span>{new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <p className="text-[#172033] font-medium">"{item.question}"</p>
+                      </div>
+                    ))}
                   </div>
-                  <p className="text-[11px] text-[#64748B]">
-                    Logging serial numbers, software logs, and event timelines.
-                  </p>
-                </div>
-
-                <div className="bg-[#F7F9FC] border border-[#E2E8F0] p-3 rounded-lg space-y-1">
-                  <div className="flex items-center gap-1.5 text-[#0088FF] font-semibold text-xs">
-                    <span className="w-1.5 h-1.5 bg-[#0088FF] rounded-full" />
-                    <span>3. Statutory SLA</span>
-                  </div>
-                  <p className="text-[11px] text-[#64748B]">
-                    Reporting mandatory event notifications within prescribed deadlines.
-                  </p>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Footer Reference */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#F1F5F9] text-[11px] text-[#64748B]">
@@ -566,13 +640,25 @@ export default function Module3VideoView({ onBack, onNavigate }) {
                 </span>
               </div>
 
-              <button
-                onClick={() => alert('MDPI Standard Guidance Form Downloaded')}
-                className="font-medium text-[#0088FF] hover:underline flex items-center gap-1 cursor-pointer"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>Download MDPI Form (PDF)</span>
-              </button>
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={handleOpenFeedback}
+                  className="font-medium text-xs text-[#0088FF] hover:text-[#0070D2] bg-[#F0F7FF] hover:bg-[#E0EFFF] border border-[#0088FF]/20 px-3 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>Give Feedback</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => alert('MDPI Standard Guidance Form Downloaded')}
+                  className="font-medium text-[#64748B] hover:text-[#172033] hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download MDPI Form (PDF)</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -704,9 +790,301 @@ export default function Module3VideoView({ onBack, onNavigate }) {
             </button>
           </div>
 
+          {/* STUDENT FEEDBACK CARD */}
+          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-4 h-4 text-[#0088FF]" />
+              <div>
+                <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block">
+                  Student Feedback
+                </span>
+                <h4 className="font-bold text-xs sm:text-sm text-[#172033]">
+                  Unit 3 Feedback
+                </h4>
+              </div>
+            </div>
+
+            <p className="text-xs text-[#64748B] leading-relaxed">
+              Have suggestions on this video or your learning progress? Share your feedback with us.
+            </p>
+
+            <button
+              type="button"
+              onClick={handleOpenFeedback}
+              className="w-full bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] hover:border-[#0088FF] text-[#172033] hover:text-[#0088FF] font-medium text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>Share Feedback</span>
+            </button>
+          </div>
+
         </div>
 
       </div>
+
+      {/* ASK A DOUBT MODAL */}
+      <AnimatePresence>
+        {showDoubtModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4"
+            onClick={() => setShowDoubtModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 10 }}
+              className="bg-white rounded-xl shadow-xl border border-[#E2E8F0] w-full max-w-md p-5 sm:p-6 space-y-4 text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#F0F7FF] border border-[#0088FF]/20 flex items-center justify-center text-[#0088FF]">
+                    <HelpCircle className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-[#172033]">Ask a Doubt</h3>
+                    <p className="text-[11px] text-[#64748B]">Connected directly to faculty review</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowDoubtModal(false)}
+                  className="p-1 text-slate-400 hover:text-slate-600 rounded-md transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Video and Timestamp details */}
+              <div className="bg-[#F7F9FC] border border-[#E2E8F0] p-3.5 rounded-lg space-y-2 text-xs">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B] block">
+                    Video:
+                  </span>
+                  <p className="font-semibold text-[#172033] mt-0.5">
+                    Medical Device Problem Reporting
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-[#E2E8F0] flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                    Timestamp:
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-mono font-bold text-xs text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded">
+                      {formatTime(doubtTimestamp)} / {formatTime(duration)}
+                    </span>
+                    <span className="text-[11px] font-mono text-[#64748B]">
+                      (Timestamp: {formatTime(doubtTimestamp)})
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Question Input */}
+              <div className="space-y-1.5">
+                <label className="block text-xs font-semibold text-[#172033]">
+                  Question:
+                </label>
+                <textarea
+                  value={doubtQuestion}
+                  onChange={(e) => setDoubtQuestion(e.target.value)}
+                  placeholder="What would you like to ask about this part of the video?"
+                  rows={4}
+                  className="w-full text-xs p-3 rounded-lg border border-[#E2E8F0] focus:border-[#0088FF] focus:ring-1 focus:ring-[#0088FF] outline-hidden resize-none text-[#172033] bg-white transition-colors placeholder:text-slate-400"
+                  autoFocus
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#E2E8F0]">
+                <button
+                  type="button"
+                  onClick={() => setShowDoubtModal(false)}
+                  className="px-4 py-2 text-xs font-medium text-[#64748B] hover:text-[#172033] bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendDoubt}
+                  disabled={!doubtQuestion.trim()}
+                  className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all shadow-xs ${
+                    doubtQuestion.trim()
+                      ? 'bg-[#0088FF] hover:bg-[#0070D2] text-white cursor-pointer active:scale-98'
+                      : 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
+                  }`}
+                >
+                  Send Doubt
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* SHARE FEEDBACK MODAL */}
+      <AnimatePresence>
+        {showFeedbackModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4"
+            onClick={() => setShowFeedbackModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 10 }}
+              className="bg-white rounded-xl shadow-xl border border-[#E2E8F0] w-full max-w-md p-5 sm:p-6 space-y-4 text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#F0F7FF] border border-[#0088FF]/20 flex items-center justify-center text-[#0088FF]">
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-[#172033]">Share Feedback</h3>
+                    <p className="text-[11px] text-[#64748B]">Help improve course quality and explanations</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowFeedbackModal(false)}
+                  className="p-1 text-slate-400 hover:text-slate-600 rounded-md transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="space-y-3.5 text-xs">
+                {/* 1. Rating (1-5) */}
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-semibold text-[#172033]">
+                    Rating (1–5):
+                  </label>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setFeedbackRating(star)}
+                        className={`w-9 h-9 rounded-lg border flex items-center justify-center text-xs font-bold transition-all cursor-pointer ${
+                          feedbackRating >= star
+                            ? 'bg-[#F0F7FF] border-[#0088FF] text-[#0088FF]'
+                            : 'bg-white border-[#E2E8F0] text-[#64748B] hover:border-slate-300'
+                        }`}
+                        title={`${star} Star${star > 1 ? 's' : ''}`}
+                      >
+                        <Star className={`w-4 h-4 ${feedbackRating >= star ? 'fill-[#0088FF] text-[#0088FF]' : 'text-slate-300'}`} />
+                      </button>
+                    ))}
+                    <span className="text-[11px] text-[#64748B] ml-1 font-medium">
+                      {feedbackRating === 5 ? 'Excellent' : feedbackRating === 4 ? 'Good' : feedbackRating === 3 ? 'Average' : feedbackRating === 2 ? 'Fair' : 'Needs Improvement'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. Feedback Type */}
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-semibold text-[#172033]">
+                    Feedback Type:
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {[
+                      'Video Content',
+                      'Explanation',
+                      'Learning Experience',
+                      'Technical Issue',
+                      'Other'
+                    ].map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => setFeedbackType(type)}
+                        className={`px-2.5 py-1.5 rounded-lg text-[11px] font-medium border text-center transition-all cursor-pointer truncate ${
+                          feedbackType === type
+                            ? 'bg-[#0088FF] border-[#0088FF] text-white shadow-2xs font-semibold'
+                            : 'bg-white border-[#E2E8F0] text-[#64748B] hover:border-slate-300 hover:text-[#172033]'
+                        }`}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 3. Feedback Message */}
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-semibold text-[#172033]">
+                    Feedback Message:
+                  </label>
+                  <textarea
+                    value={feedbackMessage}
+                    onChange={(e) => setFeedbackMessage(e.target.value)}
+                    placeholder="Tell us what you found useful or what could be improved..."
+                    rows={4}
+                    className="w-full text-xs p-3 rounded-lg border border-[#E2E8F0] focus:border-[#0088FF] focus:ring-1 focus:ring-[#0088FF] outline-hidden resize-none text-[#172033] bg-white transition-colors placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#E2E8F0]">
+                <button
+                  type="button"
+                  onClick={() => setShowFeedbackModal(false)}
+                  className="px-4 py-2 text-xs font-medium text-[#64748B] hover:text-[#172033] bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSubmitFeedback}
+                  className="bg-[#0088FF] hover:bg-[#0070D2] active:scale-98 text-white font-semibold text-xs px-4 py-2 rounded-lg transition-all shadow-xs cursor-pointer"
+                >
+                  Submit Feedback
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* SUCCESS CONFIRMATION TOAST */}
+      <AnimatePresence>
+        {(doubtNotification || feedbackNotification) && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-5 right-5 z-50 bg-[#172033] text-white px-4 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center gap-3 text-xs"
+          >
+            <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+            </div>
+            <span className="font-medium text-slate-100">
+              {doubtNotification || feedbackNotification}
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                setDoubtNotification(null);
+                setFeedbackNotification(null);
+              }}
+              className="text-slate-400 hover:text-white p-0.5 rounded cursor-pointer ml-1"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
