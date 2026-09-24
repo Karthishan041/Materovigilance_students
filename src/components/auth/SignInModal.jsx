@@ -13,7 +13,7 @@ export default function SignInModal({ onClose, onSwitchToRegister, onOpenForgotP
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLoginSuccess(role, email || (role === 'student' ? 'john.doe@hospital.edu' : 'faculty@university.edu'));
+    onLoginSuccess(role, email || (role === 'student' ? 'arunkumar@srpc.ac.in' : 'faculty@university.edu'));
   };
 
   return (
@@ -196,7 +196,7 @@ export default function SignInModal({ onClose, onSwitchToRegister, onOpenForgotP
             </div>
 
             <button
-              onClick={() => onLoginSuccess(role, 'google.user@hospital.edu')}
+              onClick={() => onLoginSuccess(role, 'arunkumar@srpc.ac.in')}
               className="w-full bg-white hover:bg-slate-50 text-slate-700 font-semibold border border-slate-200 py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">

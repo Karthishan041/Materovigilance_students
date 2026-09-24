@@ -9,12 +9,12 @@ import MVLogo from '../MVLogo';
 export default function StudentRegisterModal({ onClose, onSwitchToSignIn, onSubmitSuccess }) {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
-  const [gender, setGender] = useState('Female');
+  const [gender, setGender] = useState('Male');
 
   const [formData, setFormData] = useState({
     fullName: '',
     age: '',
-    email: 'jane.doe@hospital.edu',
+    email: 'arunkumar@srpc.ac.in',
     dob: '',
     institution: '',
     course: '',
@@ -25,7 +25,7 @@ export default function StudentRegisterModal({ onClose, onSwitchToSignIn, onSubm
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitSuccess(formData.email || 'student@hospital.edu');
+    onSubmitSuccess(formData.email || 'arunkumar@srpc.ac.in');
   };
 
   return (
@@ -124,7 +124,7 @@ export default function StudentRegisterModal({ onClose, onSwitchToSignIn, onSubm
                   <input
                     type="email"
                     required
-                    placeholder="jane.doe@hospital.edu"
+                    placeholder="arunkumar@srpc.ac.in"
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition-all"

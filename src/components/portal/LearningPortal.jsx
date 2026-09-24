@@ -79,7 +79,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
         initial={{ scale: 0.95, y: 15 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.95, y: 15 }}
-        className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-5xl overflow-hidden flex flex-col max-h-[92vh]"
+        className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-5xl overflow-hidden flex flex-col max-h-[92vh] student-portal"
       >
         {/* Portal Header Bar */}
         <div className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800 shrink-0">
@@ -92,7 +92,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                 MaterioVigilance Learning Portal
               </h2>
               <p className="text-xs text-slate-400 mt-1">
-                Student Account: Dr. Alex Morgan (Medical Officer)
+                Student Account: {user?.name || 'Arun Kumar'}
               </p>
             </div>
           </div>
@@ -410,7 +410,7 @@ export default function LearningPortal({ user, initialTab = 'dashboard', onClose
                   </p>
 
                   <h3 className="text-xl sm:text-2xl font-bold text-[#0088FF]">
-                    Dr. Alex Morgan
+                    {user?.name || 'Arun Kumar'}
                   </h3>
 
                   <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">

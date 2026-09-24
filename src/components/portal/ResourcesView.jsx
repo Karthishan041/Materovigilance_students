@@ -3,7 +3,7 @@ import {
   Search, Download, ExternalLink, X, Eye, FileText
 } from 'lucide-react';
 
-export default function ResourcesView() {
+export default function ResourcesView({ isDarkMode = false }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [previewResource, setPreviewResource] = useState(null);
@@ -174,42 +174,52 @@ export default function ResourcesView() {
   });
 
   return (
-    <div className="space-y-5 pb-10 text-[#172033]">
+    <div className={`space-y-5 pb-10 ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
       
       {/* Header Banner */}
-      <div className="bg-white rounded-xl p-5 sm:p-6 border border-[#E2E8F0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-5 sm:p-6 border flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-colors`}>
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
-            <h1 className="text-xl font-bold text-[#172033] tracking-tight">
+            <h1 className={`text-xl font-bold tracking-tight ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
               Learning Resources
             </h1>
-            <span className="text-xs font-semibold text-[#172033] bg-[#F7F9FC] border border-[#E2E8F0] px-2.5 py-0.5 rounded-md">
+            <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-md border ${
+              isDarkMode 
+                ? 'text-[#94A3B8] bg-[#202D4E] border-[#263554]' 
+                : 'text-[#172033] bg-[#F7F9FC] border-[#E2E8F0]'
+            }`}>
               {resourcesData.length} Items
             </span>
           </div>
-          <p className="text-xs text-[#64748B] leading-relaxed">
+          <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
             Access statutory medical device guidelines, official MvPI reporting forms, clinical SOP checklists, and regulatory reference databases.
           </p>
         </div>
       </div>
 
       {/* Search & Category Filter Controls */}
-      <div className="bg-white rounded-xl p-4 border border-[#E2E8F0] space-y-3">
+      <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-4 border space-y-3 transition-colors`}>
         
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-4 h-4 text-[#64748B] absolute left-3 top-2.5" />
+          <Search className={`w-4 h-4 absolute left-3 top-2.5 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`} />
           <input
             type="text"
             placeholder="Search resources by title, keyword, or category..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg focus:bg-white focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/15 outline-none transition-all placeholder:text-[#64748B]"
+            className={`w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-lg outline-none transition-all ${
+              isDarkMode
+                ? 'bg-[#202D4E] border border-[#263554] text-[#F8FAFC] placeholder:text-[#94A3B8] focus:bg-[#202D4E] focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/20'
+                : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] placeholder:text-[#64748B] focus:bg-white focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/15'
+            }`}
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-2.5 text-xs text-[#64748B] hover:text-[#172033] font-medium"
+              className={`absolute right-3 top-2.5 text-xs font-medium cursor-pointer ${
+                isDarkMode ? 'text-[#94A3B8] hover:text-[#F8FAFC]' : 'text-[#64748B] hover:text-[#172033]'
+              }`}
             >
               Clear
             </button>
@@ -218,7 +228,7 @@ export default function ResourcesView() {
 
         {/* Category Filter Controls */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
-          <span className="text-[11px] font-bold text-[#64748B] mr-1 shrink-0">
+          <span className={`text-[11px] font-bold mr-1 shrink-0 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
             Category:
           </span>
           {categories.map((cat) => (
@@ -228,7 +238,9 @@ export default function ResourcesView() {
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-[#0088FF] text-white'
-                  : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:border-[#CBD5E1] hover:text-[#0088FF]'
+                  : isDarkMode
+                    ? 'bg-[#202D4E] border border-[#263554] text-[#94A3B8] hover:border-[#0088FF]/50 hover:text-[#F8FAFC]'
+                    : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:border-[#CBD5E1] hover:text-[#0088FF]'
               }`}
             >
               {cat}
@@ -239,12 +251,14 @@ export default function ResourcesView() {
 
       {/* Clean 2-Column Resource Grid */}
       {filteredResources.length === 0 ? (
-        <div className="bg-white rounded-xl p-10 border border-[#E2E8F0] text-center space-y-2.5">
-          <div className="w-10 h-10 bg-[#F7F9FC] border border-[#E2E8F0] rounded-full flex items-center justify-center mx-auto text-[#64748B]">
+        <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-10 border text-center space-y-2.5 transition-colors`}>
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto ${
+            isDarkMode ? 'bg-[#202D4E] border border-[#263554] text-[#94A3B8]' : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#64748B]'
+          }`}>
             <Search className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-[#172033] text-sm">No resources found</h3>
-          <p className="text-xs text-[#64748B] max-w-sm mx-auto">
+          <h3 className={`font-bold text-sm ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>No resources found</h3>
+          <p className={`text-xs max-w-sm mx-auto ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
             No materials matched "{searchQuery}" under "{selectedCategory}".
           </p>
           <button
@@ -259,15 +273,23 @@ export default function ResourcesView() {
           {filteredResources.map((resource) => (
             <div
               key={resource.id}
-              className="bg-white rounded-xl p-4.5 border border-[#E2E8F0] hover:border-[#CBD5E1] transition-all flex flex-col justify-between space-y-3"
+              className={`${
+                isDarkMode 
+                  ? 'bg-[#17213C] border-[#263554] hover:border-[#0088FF]/50' 
+                  : 'bg-white border-[#E2E8F0] hover:border-[#CBD5E1]'
+              } rounded-xl p-4.5 border transition-all flex flex-col justify-between space-y-3`}
             >
               <div className="space-y-2">
                 {/* Meta Row */}
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[10px] font-bold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded uppercase tracking-wider">
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
+                    isDarkMode
+                      ? 'bg-[#0088FF]/15 border border-[#0088FF]/30 text-[#0088FF]'
+                      : 'bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF]'
+                  }`}>
                     {resource.category}
                   </span>
-                  <div className="flex items-center gap-1.5 text-[11px] text-[#64748B] font-medium">
+                  <div className={`flex items-center gap-1.5 text-[11px] font-medium ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                     <span>{resource.type}</span>
                     <span>•</span>
                     <span>{resource.fileSize}</span>
@@ -276,37 +298,45 @@ export default function ResourcesView() {
 
                 {/* Title */}
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF] flex items-center justify-center shrink-0 mt-0.5">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
+                    isDarkMode
+                      ? 'bg-[#0088FF]/15 border border-[#0088FF]/30 text-[#0088FF]'
+                      : 'bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF]'
+                  }`}>
                     <FileText className="w-4 h-4" />
                   </div>
                   <div className="space-y-0.5">
-                    <h3 className="font-bold text-[#172033] text-sm leading-snug">
+                    <h3 className={`font-bold text-sm leading-snug ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
                       {resource.title}
                     </h3>
-                    <p className="text-[11px] text-[#64748B] font-medium">
+                    <p className={`text-[11px] font-medium ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                       Source: {resource.source}
                     </p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
+                <p className={`text-xs line-clamp-2 leading-relaxed ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                   {resource.description}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div className="border-t border-[#F1F5F9] pt-2.5 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-[#64748B]">
+              <div className={`border-t pt-2.5 flex items-center justify-between gap-2 ${isDarkMode ? 'border-[#263554]' : 'border-[#F1F5F9]'}`}>
+                <span className={`text-[11px] ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                   Updated: {resource.updatedAt}
                 </span>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setPreviewResource(resource)}
-                    className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors"
+                    className={`${
+                      isDarkMode
+                        ? 'bg-[#202D4E] hover:bg-[#202D4E]/80 border-[#263554] text-[#F8FAFC]'
+                        : 'bg-white hover:bg-[#F7F9FC] border-[#E2E8F0] text-[#172033]'
+                    } border font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors`}
                   >
-                    <Eye className="w-3.5 h-3.5 text-[#64748B]" />
+                    <Eye className={`w-3.5 h-3.5 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`} />
                     <span>View</span>
                   </button>
 
@@ -338,23 +368,31 @@ export default function ResourcesView() {
 
       {/* RESOURCE PREVIEW MODAL */}
       {previewResource && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xl w-full max-w-2xl overflow-hidden p-6 space-y-4">
-            <div className="flex items-start justify-between border-b border-[#E2E8F0] pb-3">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className={`${
+            isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'
+          } rounded-xl border shadow-xl w-full max-w-2xl overflow-hidden p-6 space-y-4`}>
+            <div className={`flex items-start justify-between border-b pb-3 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
               <div className="space-y-1">
-                <span className="text-[10px] font-bold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded uppercase tracking-wider">
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
+                  isDarkMode
+                    ? 'bg-[#0088FF]/15 border border-[#0088FF]/30 text-[#0088FF]'
+                    : 'bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF]'
+                }`}>
                   {previewResource.category}
                 </span>
-                <h2 className="text-base font-bold text-[#172033] leading-snug">
+                <h2 className={`text-base font-bold leading-snug ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
                   {previewResource.title}
                 </h2>
-                <p className="text-xs text-[#64748B] font-medium">
+                <p className={`text-xs font-medium ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                   {previewResource.source} • {previewResource.type} ({previewResource.fileSize})
                 </p>
               </div>
               <button
                 onClick={() => setPreviewResource(null)}
-                className="p-1 text-[#64748B] hover:text-[#172033] rounded-md hover:bg-slate-100 cursor-pointer"
+                className={`p-1 rounded-md cursor-pointer transition-colors ${
+                  isDarkMode ? 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#202D4E]' : 'text-[#64748B] hover:text-[#172033] hover:bg-slate-100'
+                }`}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -362,31 +400,37 @@ export default function ResourcesView() {
 
             <div className="space-y-3.5">
               <div className="space-y-1">
-                <h4 className="text-xs font-bold text-[#172033] uppercase tracking-wider">Document Summary</h4>
-                <p className="text-xs text-[#172033] leading-relaxed bg-[#F7F9FC] p-3 rounded-lg border border-[#E2E8F0]">
+                <h4 className={`text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>Document Summary</h4>
+                <p className={`text-xs leading-relaxed p-3 rounded-lg border ${
+                  isDarkMode ? 'bg-[#202D4E] border-[#263554] text-[#F8FAFC]' : 'bg-[#F7F9FC] border-[#E2E8F0] text-[#172033]'
+                }`}>
                   {previewResource.description}
                 </p>
               </div>
 
               {previewResource.keyExcerpt && (
                 <div className="space-y-1">
-                  <h4 className="text-xs font-bold text-[#172033] uppercase tracking-wider">Key Excerpt</h4>
-                  <div className="bg-[#F7F9FC] p-3 rounded-lg text-xs text-[#172033] leading-relaxed border border-[#E2E8F0]">
+                  <h4 className={`text-xs font-bold uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>Key Excerpt</h4>
+                  <div className={`p-3 rounded-lg text-xs leading-relaxed border ${
+                    isDarkMode ? 'bg-[#202D4E] border-[#263554] text-[#F8FAFC]' : 'bg-[#F7F9FC] border-[#E2E8F0] text-[#172033]'
+                  }`}>
                     "{previewResource.keyExcerpt}"
                   </div>
                 </div>
               )}
 
-              <div className="text-xs text-[#64748B] flex items-center justify-between pt-1">
+              <div className={`text-xs flex items-center justify-between pt-1 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                 <span>Verification ID: VCBL-RES-{previewResource.id.toUpperCase()}</span>
                 <span>Last Reviewed: {previewResource.updatedAt}</span>
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 border-t border-[#E2E8F0] pt-3.5">
+            <div className={`flex items-center justify-end gap-2.5 border-t pt-3.5 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
               <button
                 onClick={() => setPreviewResource(null)}
-                className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-4 py-2 rounded-lg cursor-pointer transition-colors"
+                className={`border font-semibold text-xs px-4 py-2 rounded-lg cursor-pointer transition-colors ${
+                  isDarkMode ? 'bg-[#202D4E] hover:bg-[#202D4E]/80 border-[#263554] text-[#F8FAFC]' : 'bg-white hover:bg-[#F7F9FC] border-[#E2E8F0] text-[#172033]'
+                }`}
               >
                 Close
               </button>

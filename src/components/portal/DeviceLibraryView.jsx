@@ -5,7 +5,7 @@ import {
   Info, Check, AlertCircle
 } from 'lucide-react';
 
-export default function DeviceLibraryView({ onNavigate }) {
+export default function DeviceLibraryView({ onNavigate, isDarkMode = false }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedDevice, setSelectedDevice] = useState(null);
@@ -313,10 +313,12 @@ export default function DeviceLibraryView({ onNavigate }) {
   if (selectedDevice) {
     const IconComp = selectedDevice.imageIcon || Layers;
     return (
-      <div className="space-y-5 pb-10 text-[#172033]">
+      <div className={`space-y-5 pb-10 ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
         
         {/* Navigation / Action Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-white px-5 py-3.5 rounded-xl border border-[#E2E8F0] gap-3">
+        <div className={`flex flex-col sm:flex-row sm:items-center justify-between ${
+          isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'
+        } px-5 py-3.5 rounded-xl border gap-3 transition-colors`}>
           <div className="flex items-center gap-2 text-xs">
             <button
               onClick={() => setSelectedDevice(null)}
@@ -325,16 +327,20 @@ export default function DeviceLibraryView({ onNavigate }) {
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Device Reference Library</span>
             </button>
-            <span className="text-[#E2E8F0]">/</span>
-            <span className="font-bold text-[#172033] truncate">{selectedDevice.name}</span>
+            <span className={isDarkMode ? 'text-[#263554]' : 'text-[#E2E8F0]'}>/</span>
+            <span className={`font-bold truncate ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>{selectedDevice.name}</span>
           </div>
 
           <div className="flex items-center gap-2.5 self-start sm:self-auto">
             <button
               onClick={() => setSelectedDevice(null)}
-              className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-3.5 py-1.5 rounded-lg cursor-pointer transition-colors flex items-center gap-1.5"
+              className={`${
+                isDarkMode 
+                  ? 'bg-[#202D4E] hover:bg-[#202D4E]/80 border-[#263554] text-[#F8FAFC]' 
+                  : 'bg-white hover:bg-[#F7F9FC] border-[#E2E8F0] text-[#172033]'
+              } border font-semibold text-xs px-3.5 py-1.5 rounded-lg cursor-pointer transition-colors flex items-center gap-1.5`}
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-[#64748B]" />
+              <ArrowLeft className={`w-3.5 h-3.5 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`} />
               <span>Back to Library</span>
             </button>
             <button
@@ -348,9 +354,13 @@ export default function DeviceLibraryView({ onNavigate }) {
         </div>
 
         {/* Device Hero Card */}
-        <div className="bg-white rounded-xl p-6 border border-[#E2E8F0] flex flex-col md:flex-row items-start justify-between gap-6">
+        <div className={`${
+          isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'
+        } rounded-xl p-6 border flex flex-col md:flex-row items-start justify-between gap-6 transition-colors`}>
           <div className="flex items-start gap-4">
-            <div className="w-14 h-14 rounded-xl bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF] flex items-center justify-center shrink-0">
+            <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${
+              isDarkMode ? 'bg-[#0088FF]/15 border border-[#0088FF]/30 text-[#0088FF]' : 'bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF]'
+            }`}>
               <IconComp className="w-7 h-7" />
             </div>
 
@@ -359,17 +369,17 @@ export default function DeviceLibraryView({ onNavigate }) {
                 <span className="text-[#0088FF] text-xs font-bold uppercase tracking-wider">
                   {selectedDevice.category}
                 </span>
-                <span className="text-[#E2E8F0]">•</span>
-                <span className="text-[#64748B] text-xs font-medium">
+                <span className={isDarkMode ? 'text-[#263554]' : 'text-[#E2E8F0]'}>•</span>
+                <span className={`text-xs font-medium ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                   {selectedDevice.riskClass} ({selectedDevice.riskLevel})
                 </span>
               </div>
 
-              <h1 className="text-xl font-bold text-[#172033] tracking-tight">
+              <h1 className={`text-xl font-bold tracking-tight ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
                 {selectedDevice.name}
               </h1>
 
-              <p className="text-xs text-[#64748B] max-w-3xl leading-relaxed pt-0.5">
+              <p className={`text-xs max-w-3xl leading-relaxed pt-0.5 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                 {selectedDevice.description}
               </p>
             </div>
@@ -379,22 +389,22 @@ export default function DeviceLibraryView({ onNavigate }) {
         {/* Section 1 & 2: Clinical Overview & Usage */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           
-          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-2.5">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
+          <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-5 border space-y-2.5 transition-colors`}>
+            <div className={`flex items-center gap-2 border-b pb-2 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
               <Info className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">1. What is it?</h3>
+              <h3 className={`font-bold text-xs uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>1. What is it?</h3>
             </div>
-            <p className="text-xs text-[#64748B] leading-relaxed">
+            <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
               {selectedDevice.whatIsIt}
             </p>
           </div>
 
-          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-2.5">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
+          <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-5 border space-y-2.5 transition-colors`}>
+            <div className={`flex items-center gap-2 border-b pb-2 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
               <Cpu className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">2. How is it used?</h3>
+              <h3 className={`font-bold text-xs uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>2. How is it used?</h3>
             </div>
-            <div className="text-xs text-[#64748B] leading-relaxed whitespace-pre-line">
+            <div className={`text-xs leading-relaxed whitespace-pre-line ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
               {selectedDevice.howIsItUsed}
             </div>
           </div>
@@ -402,24 +412,24 @@ export default function DeviceLibraryView({ onNavigate }) {
         </div>
 
         {/* Section 3: Key Components */}
-        <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3.5">
-          <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2">
+        <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-5 border space-y-3.5 transition-colors`}>
+          <div className={`flex items-center justify-between border-b pb-2 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">3. Key Components & Subsystems</h3>
+              <h3 className={`font-bold text-xs uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>3. Key Components & Subsystems</h3>
             </div>
-            <span className="text-[11px] text-[#64748B] font-medium">
+            <span className={`text-[11px] font-medium ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
               {selectedDevice.keyComponents.length} Subsystems
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {selectedDevice.keyComponents.map((comp, idx) => (
-              <div key={idx} className="bg-[#F7F9FC] p-3.5 rounded-lg border border-[#E2E8F0] space-y-1">
-                <h4 className="font-bold text-[#172033] text-xs">
+              <div key={idx} className={`${isDarkMode ? 'bg-[#202D4E] border-[#263554]' : 'bg-[#F7F9FC] border-[#E2E8F0]'} p-3.5 rounded-lg border space-y-1`}>
+                <h4 className={`font-bold text-xs ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
                   {idx + 1}. {comp.name}
                 </h4>
-                <p className="text-[11px] text-[#64748B] leading-snug">
+                <p className={`text-[11px] leading-snug ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
                   {comp.desc}
                 </p>
               </div>
@@ -431,14 +441,14 @@ export default function DeviceLibraryView({ onNavigate }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           
           {/* Safety Considerations */}
-          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
+          <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-5 border space-y-3 transition-colors`}>
+            <div className={`flex items-center gap-2 border-b pb-2 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
               <Check className="w-4 h-4 text-[#0088FF]" />
-              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">4. Safety Considerations & SOPs</h3>
+              <h3 className={`font-bold text-xs uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>4. Safety Considerations & SOPs</h3>
             </div>
             <ul className="space-y-2">
               {selectedDevice.safetyConsiderations.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-xs text-[#172033]">
+                <li key={idx} className={`flex items-start gap-2 text-xs ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0088FF] mt-1.5 shrink-0" />
                   <span className="leading-relaxed">{item}</span>
                 </li>
@@ -447,15 +457,15 @@ export default function DeviceLibraryView({ onNavigate }) {
           </div>
 
           {/* Common Issues & Risks */}
-          <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3">
-            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
-              <AlertCircle className="w-4 h-4 text-[#64748B]" />
-              <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">5. Common Issues & Materiovigilance Risks</h3>
+          <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-5 border space-y-3 transition-colors`}>
+            <div className={`flex items-center gap-2 border-b pb-2 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
+              <AlertCircle className={`w-4 h-4 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`} />
+              <h3 className={`font-bold text-xs uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>5. Common Issues & Materiovigilance Risks</h3>
             </div>
             <ul className="space-y-2">
               {selectedDevice.commonIssues.map((issue, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-xs text-[#172033]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#64748B] mt-1.5 shrink-0" />
+                <li key={idx} className={`flex items-start gap-2 text-xs ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${isDarkMode ? 'bg-[#94A3B8]' : 'bg-[#64748B]'}`} />
                   <span className="leading-relaxed font-medium">{issue}</span>
                 </li>
               ))}
@@ -464,60 +474,31 @@ export default function DeviceLibraryView({ onNavigate }) {
 
         </div>
 
-        {/* Section 6 & 7: Related Curriculum & Practice Cases */}
-        <div className="bg-white rounded-xl p-5 border border-[#E2E8F0] space-y-3.5">
-          <div className="border-b border-[#E2E8F0] pb-2">
-            <h3 className="font-bold text-[#172033] text-xs uppercase tracking-wider">
-              6. Related Curriculum Modules & Virtual Cases
+        {/* Section 6: Related Curriculum */}
+        <div className={`${isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'} rounded-xl p-5 border space-y-3.5 transition-colors`}>
+          <div className={`border-b pb-2 ${isDarkMode ? 'border-[#263554]' : 'border-[#E2E8F0]'}`}>
+            <h3 className={`font-bold text-xs uppercase tracking-wider ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
+              6. Related Curriculum Modules
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Related Modules */}
-            <div className="space-y-2">
-              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-[#0088FF]" />
-                <span>Related Modules</span>
-              </span>
-              {selectedDevice.relatedModules.map((mod, idx) => (
-                <div key={idx} className="bg-[#F7F9FC] p-3 rounded-lg border border-[#E2E8F0] flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#172033]">{mod.title}</span>
-                  <button
-                    onClick={() => onNavigate && onNavigate(mod.id)}
-                    className="text-xs font-semibold text-[#0088FF] hover:underline flex items-center gap-1 cursor-pointer"
-                  >
-                    <span>Open Module</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Related Virtual Cases */}
-            <div className="space-y-2">
-              <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5 text-[#0088FF]" />
-                <span>Related Virtual Cases</span>
-              </span>
-              {selectedDevice.relatedCases.map((c, idx) => (
-                <div key={idx} className="bg-[#F7F9FC] p-3 rounded-lg border border-[#E2E8F0] flex items-center justify-between">
-                  <div>
-                    <span className="text-xs font-semibold text-[#172033] block">{c.title}</span>
-                    <span className="text-[10px] text-[#64748B]">Difficulty: {c.difficulty}</span>
-                  </div>
-                  <button
-                    onClick={() => {
-                      alert(`Opening ${c.title} simulation...`);
-                      if (onNavigate) onNavigate('course');
-                    }}
-                    className="bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
-                  >
-                    <span>Launch Case</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </button>
-                </div>
-              ))}
-            </div>
+          <div className="space-y-2">
+            <span className={`text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
+              <BookOpen className="w-3.5 h-3.5 text-[#0088FF]" />
+              <span>Related Modules</span>
+            </span>
+            {selectedDevice.relatedModules.map((mod, idx) => (
+              <div key={idx} className={`${isDarkMode ? 'bg-[#202D4E] border-[#263554]' : 'bg-[#F7F9FC] border-[#E2E8F0]'} p-3 rounded-lg border flex items-center justify-between`}>
+                <span className={`text-xs font-semibold ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>{mod.title}</span>
+                <button
+                  onClick={() => onNavigate && onNavigate(mod.id)}
+                  className="text-xs font-semibold text-[#0088FF] hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Open Module</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -527,42 +508,56 @@ export default function DeviceLibraryView({ onNavigate }) {
 
   // DEFAULT VIEW: Device Library List / Grid
   return (
-    <div className="space-y-5 pb-10 text-[#172033]">
+    <div className={`space-y-5 pb-10 ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
       
       {/* Page Header */}
-      <div className="bg-white rounded-xl p-5 sm:p-6 border border-[#E2E8F0] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className={`${
+        isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'
+      } rounded-xl p-5 sm:p-6 border flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-colors`}>
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
-            <h1 className="text-xl font-bold text-[#172033] tracking-tight">
+            <h1 className={`text-xl font-bold tracking-tight ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
               Device Reference Library
             </h1>
-            <span className="text-xs font-semibold text-[#172033] bg-[#F7F9FC] border border-[#E2E8F0] px-2.5 py-0.5 rounded-md">
+            <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-md border ${
+              isDarkMode 
+                ? 'text-[#94A3B8] bg-[#202D4E] border-[#263554]' 
+                : 'text-[#172033] bg-[#F7F9FC] border-[#E2E8F0]'
+            }`}>
               {devices.length} Devices
             </span>
           </div>
-          <p className="text-xs text-[#64748B] leading-relaxed">
+          <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
             Search medical devices and review technical operation, key components, safety considerations, and common materiovigilance issues.
           </p>
         </div>
       </div>
 
       {/* Search & Category Filter Controls */}
-      <div className="bg-white rounded-xl p-4 border border-[#E2E8F0] space-y-3">
+      <div className={`${
+        isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'
+      } rounded-xl p-4 border space-y-3 transition-colors`}>
         
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-4 h-4 text-[#64748B] absolute left-3 top-2.5" />
+          <Search className={`w-4 h-4 absolute left-3 top-2.5 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`} />
           <input
             type="text"
             placeholder="Search devices by name, category, or risk class..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-[#F7F9FC] border border-[#E2E8F0] rounded-lg focus:bg-white focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/15 outline-none transition-all placeholder:text-[#64748B]"
+            className={`w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-lg outline-none transition-all ${
+              isDarkMode
+                ? 'bg-[#202D4E] border border-[#263554] text-[#F8FAFC] placeholder:text-[#94A3B8] focus:bg-[#202D4E] focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/20'
+                : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] placeholder:text-[#64748B] focus:bg-white focus:border-[#0088FF] focus:ring-2 focus:ring-[#0088FF]/15'
+            }`}
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-2.5 text-xs text-[#64748B] hover:text-[#172033] font-medium"
+              className={`absolute right-3 top-2.5 text-xs font-medium cursor-pointer ${
+                isDarkMode ? 'text-[#94A3B8] hover:text-[#F8FAFC]' : 'text-[#64748B] hover:text-[#172033]'
+              }`}
             >
               Clear
             </button>
@@ -571,7 +566,7 @@ export default function DeviceLibraryView({ onNavigate }) {
 
         {/* Category Controls */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
-          <span className="text-[11px] font-bold text-[#64748B] mr-1 shrink-0">
+          <span className={`text-[11px] font-bold mr-1 shrink-0 ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
             Category:
           </span>
           {categories.map((cat) => (
@@ -581,7 +576,9 @@ export default function DeviceLibraryView({ onNavigate }) {
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-[#0088FF] text-white'
-                  : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:border-[#CBD5E1] hover:text-[#0088FF]'
+                  : isDarkMode
+                    ? 'bg-[#202D4E] border border-[#263554] text-[#94A3B8] hover:border-[#0088FF]/50 hover:text-[#F8FAFC]'
+                    : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:border-[#CBD5E1] hover:text-[#0088FF]'
               }`}
             >
               {cat}
@@ -592,12 +589,16 @@ export default function DeviceLibraryView({ onNavigate }) {
 
       {/* 3-Column Device Grid */}
       {filteredDevices.length === 0 ? (
-        <div className="bg-white rounded-xl p-10 border border-[#E2E8F0] text-center space-y-2.5">
-          <div className="w-10 h-10 bg-[#F7F9FC] border border-[#E2E8F0] rounded-full flex items-center justify-center mx-auto text-[#64748B]">
+        <div className={`${
+          isDarkMode ? 'bg-[#17213C] border-[#263554]' : 'bg-white border-[#E2E8F0]'
+        } rounded-xl p-10 border text-center space-y-2.5 transition-colors`}>
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto ${
+            isDarkMode ? 'bg-[#202D4E] border border-[#263554] text-[#94A3B8]' : 'bg-[#F7F9FC] border border-[#E2E8F0] text-[#64748B]'
+          }`}>
             <Search className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-[#172033] text-sm">No medical devices found</h3>
-          <p className="text-xs text-[#64748B] max-w-sm mx-auto">
+          <h3 className={`font-bold text-sm ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>No medical devices found</h3>
+          <p className={`text-xs max-w-sm mx-auto ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
             No devices matched "{searchQuery}" under "{selectedCategory}".
           </p>
           <button
@@ -610,49 +611,55 @@ export default function DeviceLibraryView({ onNavigate }) {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredDevices.map((device) => {
-            const IconComponent = device.imageIcon || Layers;
+            const shortSummary = 
+              device.id === 'infusion-pump' ? 'Electromechanical infusion system' :
+              device.id === 'syringe-pump' ? 'Low-volume micro-infusion delivery system' :
+              device.id === 'ventilator' ? 'Automated positive pressure ventilation system' :
+              device.id === 'pulse-oximeter' ? 'Non-invasive arterial oxygen and capnography monitoring' :
+              device.id === 'esu-diathermy' ? 'High-frequency RF tissue cutting and coagulation' :
+              device.description.split('.')[0];
+
             return (
               <div
                 key={device.id}
-                className="bg-white rounded-xl p-4.5 border border-[#E2E8F0] hover:border-[#CBD5E1] transition-all flex flex-col justify-between space-y-3.5"
+                className={`${
+                  isDarkMode 
+                    ? 'bg-[#17213C] border-[#263554] hover:border-[#0088FF]/50' 
+                    : 'bg-white border-[#E2E8F0] hover:border-[#0088FF]/40'
+                } rounded-xl p-4.5 border transition-all flex flex-col justify-between space-y-3.5`}
               >
-                <div className="space-y-2.5">
-                  {/* Category & Class Meta */}
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-bold text-[#0088FF] bg-[#F0F7FF] border border-[#0088FF]/20 px-2 py-0.5 rounded uppercase tracking-wider">
-                      {device.category}
-                    </span>
-                    <span className="text-[10px] font-medium text-[#64748B] bg-[#F7F9FC] border border-[#E2E8F0] px-2 py-0.5 rounded">
-                      {device.riskClass}
+                <div className="space-y-2">
+                  {/* Category & Risk Level */}
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
+                      isDarkMode
+                        ? 'bg-[#0088FF]/15 border border-[#0088FF]/30 text-[#0088FF]'
+                        : 'bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF]'
+                    }`}>
+                      {device.category} • {device.riskLevel}
                     </span>
                   </div>
 
-                  {/* Device Icon + Title */}
-                  <div className="flex items-start gap-3 pt-0.5">
-                    <div className="w-9 h-9 rounded-lg bg-[#F0F7FF] border border-[#0088FF]/20 text-[#0088FF] flex items-center justify-center shrink-0">
-                      <IconComponent className="w-4.5 h-4.5" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <h3 className="font-bold text-[#172033] text-sm leading-snug">
-                        {device.name}
-                      </h3>
-                      <span className="text-[10px] text-[#64748B] font-medium block">
-                        {device.riskLevel}
-                      </span>
-                    </div>
+                  {/* Device Name & Concise 1-line Description */}
+                  <div className="pt-1 space-y-1">
+                    <h3 className={`font-bold text-sm leading-snug ${isDarkMode ? 'text-[#F8FAFC]' : 'text-[#172033]'}`}>
+                      {device.name}
+                    </h3>
+                    <p className={`text-xs italic leading-relaxed truncate ${isDarkMode ? 'text-[#94A3B8]' : 'text-[#64748B]'}`}>
+                      "{shortSummary}"
+                    </p>
                   </div>
-
-                  {/* Description */}
-                  <p className="text-xs text-[#64748B] line-clamp-3 leading-relaxed">
-                    {device.description}
-                  </p>
                 </div>
 
                 {/* Card Action */}
-                <div className="border-t border-[#F1F5F9] pt-3">
+                <div className={`border-t pt-3 ${isDarkMode ? 'border-[#263554]' : 'border-[#F1F5F9]'}`}>
                   <button
                     onClick={() => setSelectedDevice(device)}
-                    className="w-full bg-white hover:bg-[#F7F9FC] border border-[#E2E8F0] text-[#172033] hover:text-[#0088FF] hover:border-[#0088FF] font-semibold text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                    className={`w-full ${
+                      isDarkMode
+                        ? 'bg-[#202D4E] hover:bg-[#202D4E]/80 border-[#263554] text-[#F8FAFC] hover:border-[#0088FF]'
+                        : 'bg-white hover:bg-[#F7F9FC] border-[#E2E8F0] text-[#172033] hover:text-[#0088FF] hover:border-[#0088FF]'
+                    } border font-semibold text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer`}
                   >
                     <span>View Device</span>
                     <ArrowRight className="w-3.5 h-3.5" />

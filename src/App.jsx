@@ -85,9 +85,9 @@ export default function App() {
   // Auth Flow Handlers - Proceed directly to Learning Portal (Next Page) upon registration
   const handleRegisterSubmit = (email, role = 'student') => {
     setUser({
-      name: role === 'faculty' ? 'Dr. Sarah Jenkins' : 'S. Sarah Jenkins',
+      name: role === 'faculty' ? 'Dr. Sarah Jenkins' : 'Arun Kumar',
       role: role,
-      email: email || 'user@hospital.edu'
+      email: email || (role === 'student' ? 'arunkumar@srpc.ac.in' : 'user@hospital.edu')
     });
     setAuthModal(null);
     setPortalTab('dashboard'); // Launch Student Dashboard!
@@ -95,9 +95,9 @@ export default function App() {
 
   const handleVerificationComplete = () => {
     setUser({
-      name: pendingRole === 'faculty' ? 'Dr. Sarah Jenkins' : 'S. Sarah Jenkins',
+      name: pendingRole === 'faculty' ? 'Dr. Sarah Jenkins' : 'Arun Kumar',
       role: pendingRole,
-      email: pendingEmail || 'user@hospital.edu'
+      email: pendingEmail || (pendingRole === 'student' ? 'arunkumar@srpc.ac.in' : 'user@hospital.edu')
     });
     setAuthModal(null);
     setPortalTab('dashboard');
@@ -105,12 +105,20 @@ export default function App() {
 
   const handleLoginSuccess = (role, email) => {
     setUser({
-      name: role === 'faculty' ? 'Dr. Alex Morgan' : 'S. Sarah Jenkins',
+      name: role === 'faculty' ? 'Dr. Alex Morgan' : 'Arun Kumar',
       role: role,
-      email: email
+      email: email || (role === 'student' ? 'arunkumar@srpc.ac.in' : 'faculty@university.edu')
     });
     setAuthModal(null);
     setPortalTab('dashboard');
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setPortalTab(null);
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.remove('dark');
+    }
   };
 
   return (
@@ -127,7 +135,7 @@ export default function App() {
         user={user}
         onOpenSignIn={() => setAuthModal('sign-in')}
         onOpenRegister={(role) => setAuthModal(role === 'faculty' ? 'faculty-register' : 'student-register')}
-        onLogout={() => { setUser(null); setPortalTab(null); }}
+        onLogout={handleLogout}
       />
 
       {/* 3. Main Slide Viewport */}
@@ -161,8 +169,8 @@ export default function App() {
           <LearningPortal
             user={user}
             initialTab={portalTab === 'pre-test' ? 'dashboard' : portalTab}
-            onClose={() => setPortalTab(null)}
-            onLogout={() => { setUser(null); setPortalTab(null); }}
+            onClose={handleLogout}
+            onLogout={handleLogout}
           />
         )}
       </AnimatePresence>
